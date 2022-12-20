@@ -102,6 +102,6 @@
 ![https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a55f6d6-5146-4b50-bda8-8afb993e322b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221220%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221220T133835Z&X-Amz-Expires=86400&X-Amz-Signature=80a2d2502998757441a40516f25ad453db41f04617fa49a4681cc4b8c9c304cb&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a55f6d6-5146-4b50-bda8-8afb993e322b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221220%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221220T133835Z&X-Amz-Expires=86400&X-Amz-Signature=80a2d2502998757441a40516f25ad453db41f04617fa49a4681cc4b8c9c304cb&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
 
 <aside>
-💡 메모리 구조 좀 정확히 알아야 겠다
+💡 메모리 구조 좀 정확히 알아야겠다
 
 </aside>
