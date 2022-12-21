@@ -13,7 +13,6 @@
 - [수빈](./subin.md)
 - [예진](./yejin.md)
 - [정원](./jungwon.md)
-- [상현](./sanghyun.md)
 - [수인](./suin.md)
 - [정환](./jeonghwan.md)
 - [재홍](./jaehong.md)
