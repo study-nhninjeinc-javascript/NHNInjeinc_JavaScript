@@ -128,5 +128,3 @@ Number, String, Boolean, null, undefined 다섯가지 타입을 말함
 
 인스턴스?
 클래스에 의해 생성되어 메모리에 저장된 실체
-
-ES6
