@@ -2,7 +2,7 @@
 
 # 10장 객체 리터널
 
-## 10.1 객체란?
+## 10.1 객체란 ?
 
 - 자바스크립트는 객체 기반의 프로그래밍 언어
 - 자바스크립트를 구성하는 거의 “모든 것”이 객체 → 모든것이 객체는 아님 (원시값을 제외한 나머지 값 {함수, 배열, 정규 표현식 등})
@@ -108,3 +108,144 @@ console.log(foo)
         - 마침표 프로퍼티 접근 연산자를 사용하는 마침표표기법    - console.log(person.name);
         - 대괄호 프로퍼티 접근 연산자를 사용하는 대괄호표기법    - console.log(person[’name’]);
 - 대괄호표기법은 반드시 따옴표를 감싸야 하며 감싸지 않을경우 자바스크립트 엔진은 식별자로 해석한다.  - 네이밍을 준수하지 않은 프로퍼티 키는 반드시 대괄호표기법을 사용해야 한다.
+
+## 10.6 프로퍼티 값 갱신
+
+- 이미 존재하는 프로퍼티에 값을 할당하면 프로퍼티 값이 갱신된다.
+
+<aside>
+💡 var person = {
+    name : ‘Lee’
+};
+  //person 객체에 name 프로퍼티가 존재하므로 name 프로퍼티 값이 갱신된다.
+person.name = ‘kim’;
+
+console.log(person);             // {name : “kim”}
+
+</aside>
+
+## 10.7 프로퍼티 동적 생성
+
+- 존재하지 않는 프로퍼티에 값을 할당하면 프로퍼티가 동적으로 생성되고 프로퍼티 값이 할당된다.
+
+<aside>
+💡 var person = {
+    name : ‘Lee’
+};
+    // person 객체에는 age 프로퍼티가 존재하지 않는다. 
+    // 따라서 person 객체에 age 프로퍼티가 동적으로 생성되고 값이 할당된다. 
+person.age = 20;
+
+console.log(person);           // {name : “Lee”, age : 20}
+
+</aside>
+
+- 프로퍼티가 존재할 경우 값이 갱신되고 존재하지 않을경우 값이 할당된다.
+
+## 10.8 프로퍼티 삭제
+
+- delete 연산자는 객체의 프로퍼티를 삭제한다.
+- 존재하지 않는 프로퍼티를 삭제하면 아무런 에러 없이 무시된다.
+
+<aside>
+💡 var person = {
+    name : ‘Lee’
+};
+
+    // 프로퍼티 동적 생성
+person.age = 20;
+
+    // person 객체에 age 프로퍼티가 존재한다. 
+    // 따라서 delete 연산자로 age 프로퍼티를 삭제할 수 있다.
+delete person.age;
+
+    // person 객체에 address 프로퍼티가 존재하지 않으나 에러는 발생하지 않는다.
+delete person.address;
+
+console.log(person);              // {name : ‘Lee’}
+
+</aside>
+
+ 
+
+## 10.9 ES6에서 추가된 객체 리터럴의 확장 가능
+
+ 
+
+### 10.9.1 프로퍼티 축약 표현
+
+- ES6에서는 프로퍼티 값으로 변수를 사용하는 변수 이름과 프로퍼티 키가 동일한 이름일 때 프로퍼티 키를 생성할 수 있다.
+
+ 
+
+<aside>
+💡 var x = 1, y = 2;
+
+var objEs5 = {                        // ES5
+    x : x,
+    y : y
+};
+    // 프로퍼티 축약 표현 
+const objEs6 = { x, y };              // ES6
+
+console.log(objEs5);                 // { x : 1, y : 2 }
+console.log(objEs6);                 // { x : 1, y : 2 }
+
+</aside>
+
+### 10.9.2 계산된 프로퍼티 이름
+
+- ES5에서 계산된 프로퍼티 이름으로 프로퍼티 키를 동적 생성하려면 객체 리터럴 외부에서 대괄호 표기법을 사용해야 한다.
+- ES6에서는 객체 리터럴 내부에서도 계산된 프로퍼티 이름으로 프로퍼티 키를 동적 생성할수 있다.
+
+<aside>
+💡 var prefix = ‘prop’;
+var i = 0;
+var j = 0;
+
+var objEs5 = {};
+
+    // 계산된 프로퍼티 이름으로 프로퍼티 키 동적 생성 
+objEs5[prefix + ‘-’ + ++i] = i;                                 // ES5
+objEs5[prefix + ‘-’ + ++i] = i;
+objEs5[prefix + ‘-’ + ++i] = i;
+
+    // 객체 리터럴 내부에서 계산된 프로퍼티 이름으로 프로퍼티 키를 동적 생성
+const objEs6 = {                                                      // ES6
+    [`${prefix}-${++j}`] : j,
+    [`${prefix}-${++j}`] : j,
+    [`${prefix}-${++j}`] : j
+}; 
+
+console.log(objEs5);              // {prop-1: 1, prop-2: 2, prop-3: 3}
+console.log(objEs6);              // {prop-1: 1, prop-2: 2, prop-3: 3}
+
+</aside>
+
+### 10.9.3 메서드 축약 표현
+
+- ES5에서 메서드를 정의하려면 프로퍼티 값으로 함수를 할당
+- ES6에서 메서드를 정의할 때 function 키워드를 생략한 축약 표현을 사용할 수 있다.
+
+<aside>
+💡 var objEs5 = {                              //ES5
+    name : ‘Lee’,
+    sayHi : function() {
+        console.log(’Hi! ’ + this.name);
+    }
+};
+
+const objEs6 = {                           //ES6
+    name : ‘Lee’,
+        // 메서드 축약 표현
+    sayHi() {
+        console.log(’Hi! ’ + this.name);
+    }
+};
+
+objEs5.sayHi();           // Hi! Lee
+objEs6.sayHi();           // Hi! Lee
+
+</aside>
+
+- ES6의 메서드 축약 표현으로 정의한 메서드는 프로퍼티에 할당한 함수와 다르게 동작한다. - 자세한 내용은 26.2절 “메서드”에서 알아볼것!
