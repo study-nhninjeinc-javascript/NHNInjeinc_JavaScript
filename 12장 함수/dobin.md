@@ -51,3 +51,68 @@ var f = function add(x,y) {
 
 어라..? 그러네.. JavaScript 함수는.. 저거 다 해당되네.. 마치 데이터 처럼..
 >
+
+### 함수 선언문
+
+```jsx
+// 방식
+function add(x,y) {
+	return x + y;
+}
+
+console.dir(add);
+// console.dir은 함수 객체의 프로퍼티까지 출력한다.
+// 단, Node.js 환경에서는 console.log와 같은 결과가 출력
+```
+
+- 함수 선언문은 함수 이름을 생략할 수 없다.
+- 함수 선언문과 함수 리터럴 표현식은 함수 객체를 생성한다는 점에서 동일하지만 호출에 차이가 있다.
+
+```jsx
+// 아래와 같은 코드가 있을 때
+(function bar() {console.log('bar'); });
+bar(); // ReferenceError : bar is not defined
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af1bbd1d-6d55-4a9c-922f-bf6c1dafa73a/Untitled.png)
+
+- ( )그룹 연산자를 통해 생성한 함수 리터럴 bar는 함수 선언문으로 해석되지 않고 함수 리터럴 표현식으로 해석되며, 함수 이름 bar는 함수 몸체 내에서만 참조할 수 있는 식별자이므로 외부(그룹 연산자 밖)에서는 식별자가 없어서 호출할 수 없다.
+- 반대로 함수 선언문으로 정의된 foo라는 함수가 있을 때 호출할 수 있는 이유는 아래와 같다.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1f130410-ceb3-42fd-97c7-650319d0457e/Untitled.png)
+
+- 함수 선언문을 변수에 할당하면 어떻게 될까? 아래 그림처럼 자바스크립트 엔진은 변수명을 식별자로 사용하게 된다. 그리고 아래와 같은 경우를 **의사코드**라고 한다.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/15b98ab6-8e2d-43e4-8d3f-e6c63f8d4c11/Untitled.png)
+
+### 함수 표현식
+
+- 함수는 일급 객체이므로 함수 리터럴로 생성한 함수 객체를 변수에 할당할 수 있다. 이러한 함수 정의 방식을 표현식이라 한다.
+
+```jsx
+// 함수 표현식
+var add = function(x,y) {
+	return x+y;
+}
+```
+
+- 함수 리터럴의 함수 이름은 생략할 수 있다. 이러한 함수를 익명 함수라 한다. 그리고 함수 표현식의 함수 리터럴은 함수 이름을 생략하는 것이 일반적이다.
+
+```jsx
+// 기명 함수 표현식
+var add = function foo(x,y) {
+	return x + y;
+}
+
+// 함수 객체를 가리키는 식별자로 호출
+console.log(add(1,2)); // 3
+// 함수 이름으로 호출하면 함수 몸체 내부에서만 유효함
+console.log(foo(1,2)); // ReferenceError : foo is not defined
+
+// 객체와 같은 접근자로도 불가능하다.
+// 함수 몸체 내부 == 할당 시점
+cconsole.log(add.foo(1,2));
+console.log(add['foo'](1,2));
+```
+
+### 함수 생성 시점과 함수 호이스팅
