@@ -74,16 +74,16 @@ console.dir(add);
 bar(); // ReferenceError : bar is not defined
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af1bbd1d-6d55-4a9c-922f-bf6c1dafa73a/Untitled.png)
+![https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Faf1bbd1d-6d55-4a9c-922f-bf6c1dafa73a%2FUntitled.png?id=470e5dc4-7861-4c27-bcb4-c395da4d0f32&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=1030&userId=&cache=v2](https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Faf1bbd1d-6d55-4a9c-922f-bf6c1dafa73a%2FUntitled.png?id=470e5dc4-7861-4c27-bcb4-c395da4d0f32&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=1030&userId=&cache=v2)
 
 - ( )그룹 연산자를 통해 생성한 함수 리터럴 bar는 함수 선언문으로 해석되지 않고 함수 리터럴 표현식으로 해석되며, 함수 이름 bar는 함수 몸체 내에서만 참조할 수 있는 식별자이므로 외부(그룹 연산자 밖)에서는 식별자가 없어서 호출할 수 없다.
 - 반대로 함수 선언문으로 정의된 foo라는 함수가 있을 때 호출할 수 있는 이유는 아래와 같다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1f130410-ceb3-42fd-97c7-650319d0457e/Untitled.png)
+![https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1f130410-ceb3-42fd-97c7-650319d0457e%2FUntitled.png?id=7cf5523b-ac82-4dba-bec3-1366a7f6fed1&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=860&userId=&cache=v2](https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1f130410-ceb3-42fd-97c7-650319d0457e%2FUntitled.png?id=7cf5523b-ac82-4dba-bec3-1366a7f6fed1&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=860&userId=&cache=v2)
 
 - 함수 선언문을 변수에 할당하면 어떻게 될까? 아래 그림처럼 자바스크립트 엔진은 변수명을 식별자로 사용하게 된다. 그리고 아래와 같은 경우를 **의사코드**라고 한다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/15b98ab6-8e2d-43e4-8d3f-e6c63f8d4c11/Untitled.png)
+![https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F15b98ab6-8e2d-43e4-8d3f-e6c63f8d4c11%2FUntitled.png?id=8a76ec37-d991-4e56-8cc8-87d1e7245d0a&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=980&userId=&cache=v2](https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F15b98ab6-8e2d-43e4-8d3f-e6c63f8d4c11%2FUntitled.png?id=8a76ec37-d991-4e56-8cc8-87d1e7245d0a&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=980&userId=&cache=v2)
 
 ### 함수 표현식
 
