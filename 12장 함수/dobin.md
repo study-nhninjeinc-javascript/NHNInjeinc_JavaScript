@@ -146,8 +146,8 @@ var sub = function (x,y) {
 
 ![https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8dece6db-ccb4-4694-aeea-0a8513e3b100%2FUntitled.png?id=38b45f67-6678-41f7-9f65-cbdd2082a905&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=1340&userId=&cache=v2](https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8dece6db-ccb4-4694-aeea-0a8513e3b100%2FUntitled.png?id=38b45f67-6678-41f7-9f65-cbdd2082a905&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=1340&userId=&cache=v2)
 
-<code>
-💡 <strong>정리</strong> <br>
+
+<code>💡 <strong>정리</strong> <br>
 먼저 변수 호이스팅을 보면 변수 호이스팅은 코드의 실행순서와 상관없이 선언된 변수들을 마치 해당 선언문이 실행된 것 처럼 자바스크립트 엔진이 식별자를 생성한다.
 그런데 이 시점에서 var 키워드는 선언과 초기화 단계가 동시에 실행되는 점과 
 모든 변수는 초기화 단계 때 undefined로 초기화가 된다는 점이 있다.
@@ -172,8 +172,8 @@ var, let, const과 위에서 언급한 TDZ는 15장에서 자세히 다루자.
 - Function 생성자는 자바스크립트가 기본 제공하는 빌트인 함수(내장 객체)이다.
 - Function 생성자 함수에 매개변수 목록과 함수 몸체를 문자열로 전달하면서 new 연산자와 함께 호출하면 함수 객체를 생성해서 반환한다.
 
-<code>
-💡 생성자 함수는 객체를 생성하는 함수를 말한다. 객체를 생성하는 방식은 객체 리터럴 이외에 다양한 방법이 있다. 생성자 함수에 대해서는 17장을 학습할 때 자세히 알아보자
+
+<code>💡 생성자 함수는 객체를 생성하는 함수를 말한다. 객체를 생성하는 방식은 객체 리터럴 이외에 다양한 방법이 있다. 생성자 함수에 대해서는 17장을 학습할 때 자세히 알아보자
 그리고 new 연산자에 대해선 <a href="https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-16-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-new-%EC%97%B0%EC%82%B0%EC%9E%90-sojvdjln1q" targer="_blank">이곳</a>을 확인하자
 
 </code>
