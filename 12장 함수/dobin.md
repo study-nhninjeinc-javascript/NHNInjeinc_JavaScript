@@ -147,7 +147,8 @@ var sub = function (x,y) {
 ![https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8dece6db-ccb4-4694-aeea-0a8513e3b100%2FUntitled.png?id=38b45f67-6678-41f7-9f65-cbdd2082a905&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=1340&userId=&cache=v2](https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8dece6db-ccb4-4694-aeea-0a8513e3b100%2FUntitled.png?id=38b45f67-6678-41f7-9f65-cbdd2082a905&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=1340&userId=&cache=v2)
 
 
-<code>💡 <strong>정리</strong> 
+<pre>
+💡 <strong>정리</strong> 
 먼저 변수 호이스팅을 보면 변수 호이스팅은 코드의 실행순서와 상관없이 선언된 변수들을 마치 해당 선언문이 실행된 것 처럼 자바스크립트 엔진이 식별자를 생성한다.
 그런데 이 시점에서 var 키워드는 선언과 초기화 단계가 동시에 실행되는 점과 
 모든 변수는 초기화 단계 때 undefined로 초기화가 된다는 점이 있다.
@@ -163,7 +164,7 @@ var sub = function (x,y) {
 <strong>(오해하기 전에 참고)</strong>
 let과 const는 var 키워드와 다르게 호이스팅으로 인해 변수 선언전(코드 실행 전) 참조를 방지하기 위해 ES6부터 도입된 키워드이다. let과 const도 호이스팅을 거치지만 변수 선언문을 만나기 전까지 일시적 사각지대 (TDZ)라는 곳에 빠지기 때문에 코드 실행 전(선언문) 참조를 하면 ReferenceError가 발생한다. 그래서 선언단계와 초기화단계가 분리되어 실행된다 볼 수 있다. 그렇기 때문에 위 코드를 다시 예로 들면 var였을 때는 이미 undefined로 초기화 되어 버려서 sub(1,2)와 같이 함수 호출형태를 하면 sub는 undefined인데 함수 처럼 호출하려고 하니 TypeError가 발생하고, sub 변수를 만약 let으로 바꾼다면 console.log(sub) 처럼 참조를 하던 sub(1,2); 처럼 호출을 하던 let은 선언 문(코드 실행)문을 만날 때 까지 일시적 사각지대에 빠져있기 때문에 식별자가 생성이 안되어서 ReferenceError가 발생한다.  다시 말하자면 var는 선언문 이전에 참조는 되었으나 함수 표현식이 할당이 안되어서 TypeError가 발생한 것 이고, let은 선언문 이전에 참조를 방지하는 키워드이기 때문에 ReferenceError가 발생한 것 이다.
 
-var, let, const과 위에서 언급한 TDZ는 15장에서 자세히 다루자.</code>
+var, let, const과 위에서 언급한 TDZ는 15장에서 자세히 다루자.</pre>
 
 ### Function 생성자 함수
 
@@ -171,10 +172,11 @@ var, let, const과 위에서 언급한 TDZ는 15장에서 자세히 다루자.</
 - Function 생성자 함수에 매개변수 목록과 함수 몸체를 문자열로 전달하면서 new 연산자와 함께 호출하면 함수 객체를 생성해서 반환한다.
 
 
-<code>💡 생성자 함수는 객체를 생성하는 함수를 말한다. 
+<pre>💡 생성자 함수는 객체를 생성하는 함수를 말한다. 
 객체를 생성하는 방식은 객체 리터럴 이외에 다양한 방법이 있다. 
 생성자 함수에 대해서는 17장을 학습할 때 자세히 알아보자
-그리고 new 연산자에 대해선 <a href="https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-16-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-new-%EC%97%B0%EC%82%B0%EC%9E%90-sojvdjln1q" targer="_blank">이곳</a>을 확인하자</code>
+그리고 new 연산자에 대해선 <a href="https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-16-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-new-%EC%97%B0%EC%82%B0%EC%9E%90-sojvdjln1q" targer="_blank">이곳</a>을 확인하자
+</pre>
 
 ```jsx
 // Function 생성자 함수로 함수를 생성
