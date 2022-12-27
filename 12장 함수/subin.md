@@ -188,3 +188,268 @@ console.log(foo(2,5));      // ReferenceError : foo is not defined
 </aside>
 
 ### 12.4.3 함수 생성 시점과 함수 호이스팅
+
+<aside>
+💡         // 함수 참조 
+console.dir(add);    // f add(x, y)
+console.dir(sub);    // undefined
+
+    // 함수 호출
+console.log(add(2, 5));    // 7
+console.log(sub(2, 5));    // TypeError : sub is not a function 
+
+    // 함수 선언문
+function add(x ,y) {
+    return x + y;
+}
+
+    // 함수 표현식
+var sub = function (x, y) {
+    return x - y;
+};
+
+</aside>
+
+- 함수 선언문으로 정의한 함수와 함수 표현식으로 정의한 함수의 생성 시점이 다르다
+- 함수 선언문으로 함수를 정의할 시 런타임 이전에 객체가 먼저 생성 → 자바스크립트 엔진은 함수 이름과 동일한 이름의 식별자를 암묵적 생성 → 생성된 함수 객체 할당
+- 함수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 함수 호이스팅이라 한다.
+- 변수 호이스팅과 함수 호이스팅 차이
+    - var 키워드로 변수 선언 - 런타임 이전에 자바스크립트 엔진에 의해 먼저 실행
+    - var 키워드로 선언된 변수는 undefined로 초기화 - 함수 선언문을 통해 암묵적으로 생성된 식별자는 함수 객체로 초기화
+    - 변수 선언문 이전에 변수를 참조하면 변수 호이스팅에 의해 undefined로 평가되지만 함수 선언문으로 정의한 함수를 함수 선언문 이전에 호출하면 함수 호이스팅에 의 호출 가능
+    
+     
+    
+- 변수 할당문의 값은 할당문이 실해되는 시점 즉 런타임에 평가 - 함수 표현식의 함수 리터럴도 할당문이 실행되는 시점에 평가되어 함수 객체가 된다.
+- 함수 표현식으로 함수를 정의할 시 함수 호이스팅이 발생하는 것이 아닌 변수 호이스팅 발생
+
+그림 12-8 함수 표현식에 의한 함수 생성 참고 할 것!!!
+
+- 함수 호이스팅은 함수를 호출하기 전에 반드시 함수를 선언해야 한다는 당연한 규칙을 무시 - 더글라스 크락포드(JSON 창안)는 함수 선언문 대신 함수 표현식을 사용할 것을 권장
+
+### 12.4.4 Function 생성자 함수
+
+- 자바스크립트가 기본 제공하는 빌트인 함수인 Function 생성자 함수에 매개변수 목록과 함수 몸체를 문자열로 전달하면서 new 연산자와 함께 호출하면 객체를 생성해서 반환
+
+<aside>
+💡 var add = new Function(’x’, ‘y’, ‘return x + y’);
+console.log(add(2, 5));    // 7
+
+</aside>
+
+- Function 생성자 함수로 함수를 생성하는 방식은 일반적이지 않으며 바람직하지 않다.
+- Function 생성자 함수로 생성한 함수는 클로저를 생성하지 않는 등 함수 선언문이나 함수 표현식으로 생성한 함수와 다르게 동작
+
+<aside>
+💡 var add1 = (function () {
+    var a = 10;
+    return function (x, y) {
+        return x + y + a;
+    };
+}());
+
+console.log(add1(1, 2));    // 13
+
+var add2 = (function () {
+    var a = 10;
+    return new Function(’x’, ’y’, ‘return x + y + a’);
+}());
+
+console.log(add2(1, 2));    // ReferenceError: a Is not defined
+
+</aside>
+
+### 12.4.5 화살표 함수
+
+- 화살표 함수는 function 키워드 대신 화살표 ⇒ 를 사용해 좀 더 간략한 방법으로 함수를 선언
+- 화살표 함수는 항상 익명 함수로 정의
+
+<aside>
+💡     // 화살표 함수
+const add = ( x, y ) ⇒ x + y;
+console.log(add(2, 5));    // 7
+
+</aside>
+
+- 생성자 함수로 사용할 수 없다
+- 기존 함수와 this 바인딩 방식이 다르다
+- 프로퍼티가 없으며 객체를 생성하지 않는다. - 26.3절 화살표 함수에서 자세히 살펴볼 것!!!
+
+## 12.5 함수 호출
+
+### 12.5.1 매개변수와 인수
+
+- 함수를 실행하기 위해 필요한 값을 함수 외부에서 전달할 필요가 있는 경우 매개변수를 통해 인수를 전달
+- 인수는 값으로 평가 될 수 있는 표현식이어야 한다.
+- 인수는 함수를 호출할 때 지정하며 개수와 타입에 제한이 없다.
+
+<aside>
+💡     // 함수 선언문 
+function add(x, y){
+    return x + y;
+}
+
+    // 함수 호출
+    // 인수 1과 2가 매개변수 x와 y에 순서대로 할당되고 함수 몸체의 문들과 실행된다.
+var result = add(1, 2);
+
+</aside>
+
+- 매개변수를 함수를 정의할 때 선언하며 함수 몸체 내부에서 변수와 동일하게 취급한다.
+- 함수가 호출되면 함수 몸체 내에서 암묵적으로 매개변수가 생성되고 일반 변수와 마찬가지로 undefined로 초기화된 이후 인수가 순서대로 할당된다.
+
+ 
+
+![12-9.png](subin%20917c36ba507c49c084869e23c11ad7b6/12-9.png)
+
+- 매개변수는 함수 몸체 내부에서만 참조할 수 있다.
+
+<aside>
+💡 function add(x, y) {
+    console.log(x, y);    // 2 5
+    return x + y;
+}
+
+add(2, 5);
+
+// add 함수의 매개변수 x, y는 함수 몸체 내부에서만 참조할 수 있다 .
+console.log(x, y);    //ReferenceError : x is not defined
+
+</aside>
+
+- 함수는 매개변수의 개수와 인수의 개수가 일치하는지 체크하지 않는다.
+
+<aside>
+💡 function add(x, y) {
+    return x + y; 
+}
+
+console.log(add(2));    // NaN
+
+// 매개변수 x에는 2가 전달되지만 y에는 전달할 인수가 없어 undefined로 정의
+// 2 + undefined = 이므로 NaN이 반환된다.
+
+</aside>
+
+<aside>
+💡 function add(x, y) {
+    return x + y;
+}
+
+console.log(add(2,5,10));    // 7
+
+function add(x, y) {
+    console.log(arguments);
+    // Arguments(3) [2, 5, 10, callee: f, Symbol(Symbol.iterator): f]
+    return x + y;
+}
+
+add(2, 5, 10);
+
+// 초과된 인수는 그냥 버려지는 것이 아닌 arguments 객체의 프로퍼티로 보관된다
+- 18.2.1절 arguments 프로퍼티에서 자세히 알아볼 것!!!
+
+</aside>
+
+### 12.5.2 인수 확인
+
+- 자바스크립트 함수는 매개변수와 인수의 개수가 일치해야 한다.
+- 자바스크립트는 동적 타입 언어다 따라서 매개변수 타입을 사전에 지정할 수 없다.
+
+<aside>
+💡 function add(x, y) {
+    if (typeof x !== ‘number’ || typeof y !== ‘number’) {
+        throw new TypeError(’인수는 모두 숫자 값이어야 합니다.’);
+    }
+    return x + y;
+}
+
+console.log(add(2));   // TypeError : 인수는 모두 숫자 값이어야 합니다. x = number y= undefined
+console.log(add(’a’,’b’)); // TypeError : 인수는 모두 숫자 값이어야 합니다. x = String y = String
+
+// 매개변수 기본값을 할당
+function add(a, b, c) {
+    a = a || 0;
+    b = b || 0;
+    c = c || 0;
+    return a + b + c;
+}
+console.log(add(1,2,3));    // 6
+console.log(add(1,2));      // 3
+console.log(add(1));         // 1
+console.log(add());           // 0
+
+// ES6 이후 매개변수 기본값을 할당
+function add(a = 0, b = 0, c = 0) {
+    return a + b + c;
+}
+console.log(add(1,2,3));    // 6
+console.log(add(1,2));      // 3
+console.log(add(1));         // 1
+console.log(add());           // 0
+
+</aside>
+
+### 12.5.3 매개변수의 최대 개수
+
+- 최대개수를 명시적으로 제한하고 있지 않다.
+- 매개변수는 코드를 이해하는데 방해되는 요소로 적을수록 좋다.
+- 이상적인 함수는 한가지 일만 해야 하며 가급적 작게 만들어야 한다.(매개 변수가 많다는 것은 함수가 여러가지 일을 한다는 증거로 바람직하지 않다.)
+
+### 12.5.4 반환문
+
+- 함수는 return 키워드와 표현식(반환값)으로 이뤄진 반환문을 사용해 실행 결과를 함수 외부로 반환 할수 있다.
+- 반환문은 함수의 실행을 중단하고 함수 몸체를 빠져나간다. 즉 반환문 이후는 실행을 안한다.
+- 반환문은 return 키워드 뒤에 오는 표현식을 평가해 반환한다. 지정하지 않으면 undefined가 반환된다.
+- 반환문은 생략이 가능하다.
+- return 키워드와 반환값으로 사용할 표현식 사이에 줄바꿈이 있으면 세미콜론 자동삽입 기능에 의해 세미콜론이 추가된다.
+- 반환문은 함수 몸체 내부에서만 사용할 수 있다. - Node.js는 모듈 시스템에 의해 파일별로 독립적인 파일 스코프를 갖는다 따라서 바깥 영역에 반환문을 사용해도 에러가 발생하지 않는다.
+
+## 12.6 참조에 의한 전달과 외부 상태의 변경
+
+- 매개변수는 함수 몸체 내부에서 변수와 동일하게 취급
+- 매개변수 또한 타입에 따라 값에 의한 전달, 참조에 의한 전달 방식을 따른다.
+
+<aside>
+💡     // 매개변수 primitive는 원시 값을 전달받고 매개변수 obj는 객체를 전달받는다.
+function changeVal(primitive, obj) {
+    primitive += 100;
+    [obj.name](http://obj.name) = ‘kim’;
+}
+
+    // 외부상태
+var num = 100;
+var person = { name : ‘Lee’ };
+
+console.log(num);    // 100
+console.log(person);    // { name : “Lee” }
+
+    // 원시 값은 값 자체가 복사되어 전달되고 객체는 참조 값이 복사되어 전달된다.
+changeVal(num, person);
+
+    // 원시 값은 원본이 훼손되지 않는다.
+console.log(num);    // 100
+
+    // 객체는 원본이 훼손된다.
+console.log(person);    // { name : “Kim” }
+
+</aside>
+
+- primitive은 원시 값으로 변경 불가능한 값 즉 직접 변경을 할수 없어 재할당을 통해 새로운 원시 값으로 교체
+- obj은 변경 가능한 값이므로 직접 변경이 가능하여 재할당 없이 직접 할당된 객체를 변경
+
+그림 12-10 값에 의한 호출과 참조에 의한 호출 참고 할 것 !!!
+
+- 옵저버 패턴, 불변 객체, 방어적 복사, 깊은 복사 등 따로 공부 할것 !!! 176-177
+
+## 12.7 다양한 함수의 형태
+
+### 12.7.1 즉시 실행 함수
+
+### 12.7.2 재귀 함수
+
+### 12.7.3 중첩 함수
+
+### 12.7.4 콜백 함수
+
+### 12.7.5 순수 함수와 비순수 함수
