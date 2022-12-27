@@ -63,7 +63,208 @@ add(2, 5);//인수 2, 5
 
 ## 12.4 함수 정의
 
+- 함수를 호출하기 이전에 인수를 전달받을 매개변수와 실행할 문들, 그리고 반환할 값을 지정하는것
+- 자바스크립트 엔진에 의해 평가되어 함수 객체가 됨
+- 함수를 정의하는 방법
+    
+    
+    | 함수 정의 방식 | 예시 |
+    | --- | --- |
+    | 함수 선언문 | function add(x, y){
+       return x + y;
+    } |
+    | 함수표현식 | var add = function (x, y){
+       return x + y;
+    } |
+    | function 생성자 함수 | var add = new Funcion(’x’, ’y’, ‘return x + y’) |
+    | 화살표함수 | var add = (x, y) ⇒ x+y |
+
 ---
+
+- 모든 함수 정의 방식은 함수를 정의한다는 면에서 동일. 단, 미묘하지만 중요한차이가 있다.
+    - 변수선언과 함수 정의
+        
+        변수는 선언(declaration)한다고 했지만 함수는 정의(definition)
+        함수선언문이 평가되면 식별자가 암묵적으로 생성되고 객체가 할당된다.
+        
+
+### 12.4.1 **함수선언문**
+
+- 함수 선언문은 함수 리터럴과 형태가 동일. 그러나 함수 선언문은 함수이름을 생략할수 없다.
+- 함수 선언문은 표현식이 아닌 문이다 - 콘솔에서 함수 선언문을 실행하면 undefined가 출력
+표현식인 문이라면 undefined 표현식이 평가되어 생성된 함수가 출력되어야한다.
+
+```jsx
+function add(x, y){
+  return x + y;
+}
+
+console.dir(add); //ƒ add(x, y)
+console.log(add(2,5)); // 7
+
+function (x, y){
+  return x + y;
+}
+//Uncaught SyntaxError: Function statements require a function name
+
+```
+
+- 문은 변수에 할당할수 없다 - 함수 선언문도 표현식이 아닌 문이므로 변수에 할당 할 수 없다.
+- 그러나 함수 선언문이 변수에 할당되는것 처럼 보일수있다.
+→ 함수선언문으로 해석하는 경우와 표현식인 문인 함수 리터럴 표현식으로 해석하는경우가 있기때문이다.
+- {}은 중의적 표현이다 - 코드문맥에 따라 해석이 달라진다.
+{}이 단독으로 존재 - 블록문, 값으로평가되어야할 문맥에서 피연산자로 사용 - 객체리터럴
+- 기명함수 리터럴도 중의적인 코드이다 - 코드의 문맥에 따라 달라진다
+함수 이름이 있는 함수 리터럴을 단독으로 사용(값으로 평가되어야하는 문맥에서 함수리터럴을 사용하지 않는경우) - 함수선언문
+함수리터럴이 값으로 평가되어야하는 문맥 - 함수 리터럴 표현식
+    
+    ```jsx
+    //기명함수 리터럴을 단독으로 사용하면 함수 선언문으로 해석된다.
+    //함수선언문에서는 함수이름을 생략할수없다.
+    function foo(x, y){console.log('foo');}
+    foo();//foo
+    
+    //함수 리터럴을 피연산자로 사용하면 함수 선언문이아니라 함수 표현식으로 해석
+    //()그룹연산자 내에 있는 함수
+    (function bar(){console.log('bar');});
+    bar();//Uncaught ReferenceError: bar is not defined
+    ```
+    
+
+![bar는 함수 몸체내에서만 참조할수 있는 식별자이므로 함수를 호출 할 수 없다.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/67d285bc-c17f-43f8-aefc-b54f05ff6e56/Untitled.png)
+
+bar는 함수 몸체내에서만 참조할수 있는 식별자이므로 함수를 호출 할 수 없다.
+
+![foo는 자바스크립트 엔진이 암묵적으로 생성한 식별자이다.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ef027fb8-a817-4744-a1a4-a1a608462559/Untitled.png)
+
+foo는 자바스크립트 엔진이 암묵적으로 생성한 식별자이다.
+
+- 따라서 자바스크립트 엔진은 생성된 함수를 호출하기 위해 이름과 동일한 이름의 식별자를 암묵적으로 생성하고 거기에 함수 객체를 할당한다.
+- 함수는 함수의 이름으로 호출하는 것이 아니라 함수 객체를 가리키는 식별자로 호출한다.
+    
+    ```jsx
+    // 식별자          함수이름
+    var add = function add(x, y){
+      return x + y;
+    }
+    
+    //         식별자
+    console.log(add(2,5)); // 7
+    ```
+    
+
+### 12.4.2 함수 표현식
+
+- 자바스크립트 함수는 객체타입의 값 → 값처럼 변수에 할당할수 있고 프로퍼티 값이 될수 있으며, 배열의 요소가 될수있다 - 이처럼 값의 성질을 갖는 객체를 **일급객체**라고한다
+- 함수는 일급객체 이르모 함수 리터럴 로 생성한 함수 객체를 변수에 할당할수있다.
+→ 이러한 함수 정의 방식을 함수 표현식이라한다.
+- 함수 리터럴의 함수이름은 생략할수있다 → 익명함수라한다. 함수 표현식의 함수리터럴은 함수리름을 생략하는것이 일반적이다
+
+```jsx
+//함수표현식
+var add = function (x, y){
+  return x + y;
+}
+console.log(add(2,5)); // 7
+
+//기명 함수표현식
+var add2 = function foo(x, y){
+  return x + y;
+}
+//함수 객체를 가리키는 식별자로 호출
+console.log(add2(2,5)); // 7
+//함수이름으로 호출하면 ReferenceError 발생
+//함수이름은 함수 몸체내부에서만 유효한 식별자
+console.log(foo(2,5)); // Uncaught ReferenceError: foo is not defined
+```
+
+### 12.4.3 함수 생성 시점과 호이스팅
+
+```jsx
+//함수 참조
+console.dir(add); //ƒ add(x, y)
+console.dir(sub); //undefined
+
+//함수 호출
+console.log(add(2,5)); //7
+console.log(sub(2,5)); //Uncaught TypeError: sub is not a function
+
+//함수 선언문
+function add(x, y){
+  return x + y;
+}
+
+//함수 표현식
+var sub = function (x, y){
+  return x - y;
+}
+```
+
+- 함수선언문으로 정의한 함수는 함수선언문 이전 호출 가능
+함수표현식으로 정의한 함수는 함수표현식 이전에 호출 불가능
+→ **함수 선언문 정의 함수와 함수 표현식 정의한 함수의 생성 시점이 다르기 때문**
+- 함수 선언문도 코드가 한줄씩 순차적으로 실행되는 시점인 런타임 이전에 자바스크립트 엔진에 의해 먼저 실행
+→ 함수 선언문으로 함수를 정의하면 런타임 이전에 함수 객체 생성
+    → 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성 → 생성된 함수 객체 할당
+- **함수 선언문이 코드의 선두로 끌어올려진것처럼 동작하는 자바스크립트의 고유의 특징을 함수 호이스팅이라한다**
+- 함수 호이스팅과 변수 호이스팅은 미묘한 차이가 있으므로 주의
+- var키워드를 사용한 변수는 undefined로 초기화
+함수선언문을 통해 암묵적으로 생성된 식별자는 함수 객체로 초기화
+→ var 키워드를 사용한 변수 선언문 이전에 변수 참조시 호이스팅으로 인해 undefined로 평가
+    함수 선언문으로 정의한 함수를 함수 선언문 이전에 호출 시 호이스팅에 의해 호출 가능
+- 함수 표현식은 변수에 할당되는 값이 함수 리터럴인 문
+→ 함수표현식은 변수 선언문과 변수 할당문을 한번에 기술한 축약 표현과 동일하게 작동
+- 변수선언은 런타임이전에 undefined로 초기화 되지만..
+**변수 할당문의 값은 할당문이 실행되는 시점, 즉 런타임에 평가 되므로 함수 표현식의 함수리터럴도 할당문이 싱행되는 시점에 평가되어 함수 객체가 된다.**
+- **함수 표현식으로 함수를 정의하면 변수 호이스팅이 발생
+함수선언문으로 함수를 정의하면 함수 호이스팅이 발생**
+- 함수 호이스팅은 함수를 호출하기 전에 반드시 함수를 선언해야 한다는 당연한 규칙을 무시한다.
+히같은 문제때문에 함수선언문 대신 함수 표현식을 사용할것을 권장한다.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3cf5f168-d42f-429e-b66d-8c240c8adcac/Untitled.png)
+
+### 12.4.4 Function 생성자 함수
+
+- 자바스크립트가 기본 제공하는 빌트인 함수인 Function 생성자 함수에 배개변수 목록과 함수 몸체를 문자열로 전달하면서 new 연산자와 함께 호출하면 함수 객체를 생성해서 반환한다.
+사실 new 연산자 없이 호출해도 결과는동일..
+- Function 생성자 함수로 함수를 생성하는 방식은 일반적이지 않으며 바람직하지도 않다.
+- Function 생성자 함수로 생성한 함수는 클로저를 생성하지 않는 등 함수 선언문이나 함수 표현식으로 생성한 함수와 다르게 동작
+
+```jsx
+var add = new Function('x','y','return x+y');
+console.log(add(2,5));//7
+
+var add1 = (function(){
+  var a = 10;
+  return function(x, y){
+     return x+y+a;
+  }
+}());
+console.log(add1(1,2));//13
+
+var add1 = (function(){
+  var a = 10;
+  return new Function('x','y','return x+y+a');
+}());
+console.log(add2(1,2));//Uncaught ReferenceError: add2 is not defined
+```
+
+### 12.4.5 화살표 함수
+
+- function 키워드 대신 화살표 >를 사용해 더 간략한 방법으로 함수를 선언할수 있다.
+- 항상 익명함수로 정의한다
+- 기존의 함수 선언문 또는 함수 표현식을 완전히 대체하기 위해 디자인 된것은 아니다.
+- 기존의 함수보다 표현만 간략한 것이 아니라 내부 동작 또한 간략화 되어있다.
+- 화살표 함수는 생성자함수로 사용 X, 기존 함수와 this 바인딩 방식이 다르고, prototype 프로퍼티가 없으면 argument 객체를 생성 X
+
+```jsx
+const add = (x,y) => x + y;
+console.log(add(2,5)); //7
+```
+
+---
+
+## 12.5 함수 호출
 
 ???
 
@@ -94,3 +295,25 @@ statement
 리터럴은 사람이 이해할수있는 문자 또는 약속된 기호를 사용해 생성하는 표기방식
 
 프로퍼티
+
+선언과 정의
+
+console.dir과 console.log
+
+표현식
+
+표현식이란 어떤 값으로 이행하는 임의의 유효한 코드 단위
+
+this, new, super, 그룹연산자…
+
+[https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators#표현식](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_Operators#%ED%91%9C%ED%98%84%EC%8B%9D)
+
+의사코드
+
+생성자 함수
+
+생성자함수는 객체를 생성하는 함수, 객체를 생성하는 방식은 객체리터럴 이외에 다양한방법이있따. 17장에 있다.
+
+클로저
+
+화살표 함수의 this 바인딩
