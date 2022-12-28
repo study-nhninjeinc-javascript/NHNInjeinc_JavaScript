@@ -135,11 +135,3 @@ console.log(copy);   //{name:"kim", address:"Seoul"}
 ```
 
 정리 참고
-
-```jsx
-var person1 = {name : 'Lee'};
-var person2 = {name : 'Lee'};
-
-console.log(person1 === person2); //false 객체리터럴=객체 비교는 생성할 때 마다 다른 주소라 false
-console.log(person1.name === person2.name); //false 원시타입 Lee 비교라  true
-```
