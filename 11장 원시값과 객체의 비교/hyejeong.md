@@ -22,7 +22,7 @@
 
 **변경 불가능한 값(불변성)**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b597d85-4153-46f8-b64d-f5c70abfafe8/Untitled.png)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b597d85-4153-46f8-b64d-f5c70abfafe8/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b597d85-4153-46f8-b64d-f5c70abfafe8/Untitled.png)
 
 - 원시 값은 변경 불가능한 값으로 직접 변경 불가. 따라서 변수 값 변경을 위해 원시 값을 **재 할당**하면 **새로운 메모리 공간**을 확보하고 재 할당한 값을 저장한 후, 변수가 참조하던 메모리 공간의 **주소를 변경**한다.
 - 변수와 반대 개념인 상수의 경우 값 저장을 위해 메모리가 필요하다는 점에 있어 변수와 유사하지만 한번만 할당이 가능하다는 점에 있어 차이를 가진다.
@@ -68,11 +68,11 @@ console.log(copy); //80
 
 재할당 시 동작 방식 1 - 애초부터 다른 메모리 주소 값으로 저장
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d06df09e-763f-4306-94aa-63b83280d972/Untitled.png)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d06df09e-763f-4306-94aa-63b83280d972/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d06df09e-763f-4306-94aa-63b83280d972/Untitled.png)
 
 재할당 시 동작 방식 2 - 같은 메모리 주소 참조하다가 재 할당 시 다른 주소 값으로 변경
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b8dff49b-fd5e-4827-8a32-ea1145d7cba1/Untitled.png)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b8dff49b-fd5e-4827-8a32-ea1145d7cba1/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b8dff49b-fd5e-4827-8a32-ea1145d7cba1/Untitled.png)
 
 ### 2. 객체
 
@@ -80,7 +80,7 @@ console.log(copy); //80
 
 **변경 가능한 값**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/74974bf3-efbe-45ec-bc39-19c41e07d530/Untitled.png)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/74974bf3-efbe-45ec-bc39-19c41e07d530/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/74974bf3-efbe-45ec-bc39-19c41e07d530/Untitled.png)
 
 - 메모리에 저장된 값에 직접 접근하는 원시 타입과 달리 객체는 메모리에 저장된 참조 값을 통해 실제 객체에 접근함.
 - 값 변경을 위해 재 할당하는 원시 타입과 달리 객체는 메모리에 저장된 객체를 직접 수정할 수 있다. 또한 재 할당을 하지 않고 변경하기 때문에 객체를 할당한 변수의 참조 값도 변경되지 않는다.
@@ -114,7 +114,7 @@ console.log(c2.x === o.x); //false //중첩된 객체도 다른 주소값 가지
 
 **참조에 의한 전달**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9428235-14da-45a0-a06e-470e57ad70df/Untitled.png)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9428235-14da-45a0-a06e-470e57ad70df/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9428235-14da-45a0-a06e-470e57ad70df/Untitled.png)
 
 person과 copy는 저장된 메모리 주소는 …F2 ….524로 다르지만 메모리 안에 저장된 값은 동일한 참조값을 가진다. 이는 두 식별자가 하나의 객체를 공유하는 것으로 원본 또는 사본 중 어느 한쪽에서 객체를 변경하면 서로 영향을 주고 받는다.
 
@@ -135,3 +135,10 @@ console.log(copy);   //{name:"kim", address:"Seoul"}
 ```
 
 정리 참고
+```jsx
+var person1 = {name : 'Lee'};
+var person2 = {name : 'Lee'};
+
+console.log(person1 === person2); //false 객체리터럴=객체 비교는 생성할 때 마다 다른 주소라 false
+console.log(person1.name === person2.name); //false 원시타입 Lee 비교라  true
+```
