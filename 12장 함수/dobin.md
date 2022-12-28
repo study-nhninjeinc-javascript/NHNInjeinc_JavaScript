@@ -404,7 +404,7 @@ outer();
 
 스택에서는 ?
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7822f86e-d0bf-41a5-8ea7-b9086dda9bdd/Untitled.png)
+![https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fadf86270-59a3-4627-b426-c9904905dfa0%2FUntitled.png?id=57f763fe-f931-4bb1-84fb-d977563373c2&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=2000&userId=&cache=v2](https://dev-dobin.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fadf86270-59a3-4627-b426-c9904905dfa0%2FUntitled.png?id=57f763fe-f931-4bb1-84fb-d977563373c2&table=block&spaceId=f800ef36-5d6f-4e98-a2f1-f4b2d48cc3fe&width=2000&userId=&cache=v2)
 
 <aside>
 💡 잠깐.. 함수안에 함수 표현식은 어떻게 될까?
