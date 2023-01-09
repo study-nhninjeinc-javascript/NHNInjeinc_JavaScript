@@ -25,7 +25,7 @@ call stack 에선 최근에 추가된 실행 컨텍스트만 활성화
  
 
 ```jsx
-console.log(hoTe); // undefined
+console.log(hoTe); // undefined햐
 
 var hoTe = 'value';
 
