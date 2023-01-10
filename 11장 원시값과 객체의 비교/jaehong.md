@@ -25,3 +25,5 @@ console.log(o)
 구글의 V8엔진에서는 히든 클래스라는 방식을 사용하여 프로퍼티에 접근을 한다.
 
 <img src="https://miro.medium.com/max/700/1*0-zCgnZLrFia_zO-V2Btvg.jpeg">
+
+> source : https://ui.toast.com/weekly-pick/ko_20210909
