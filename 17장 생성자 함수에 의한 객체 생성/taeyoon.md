@@ -186,3 +186,25 @@ console.log(test1) // Circle{radius:1, f:f}
 
 constructor : 함수선언문, 함수표현식, 클래스
 non-constructor : 메서드(ES6 메서드 축약표현) , 화살표함수
+
+```jsx
+const f1 ={
+	x=function(){} //프로터티 일반함수정의(선언문 및 표현식) -> constructor
+}
+
+const f2 = {
+x(){} // 축약표현(화살표포함) ->non-constructor
+}
+```
+
+### new.target
+
+javascript.ko에서는 중요하지 않은 내용이라 스킵해도 된다고 하였지만 간단하게 살펴보자면
+
+=new연산자와 함께 호출여부를 검사
+
+new.target은 함수 자신을 가르킨다
+
+일반함수의 [new.target](http://new.target)은 undefined
+
+es6에서는 안되니 instance of 로 확인 !
