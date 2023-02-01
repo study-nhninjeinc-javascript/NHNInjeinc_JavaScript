@@ -4,19 +4,32 @@
 
 new 연산자와 함께 Object 생성자 함수를 호출하면 **빈 객체 생성하여 반환**
 
+why? 
+
+`'new'` 연산자와 생성자 함수를 사용하면 유사한 객체 여러 개를 쉽게 만
+
+1. 함수 이름의 첫 글자는 대문자로 시작
+2. 반드시 `'new'` 연산자를 붙여 실행
+
 ```jsx
-const obj = new Object(); //빈 객체 생성
+function User(name) {
+  // this = {};  (빈 객체가 암시적으로 만들어짐)
 
-//프로퍼티 추가
+  // 새로운 프로퍼티를 this에 추가함
+  this.name = name;
+  this.isAdmin = false;
 
-obj.name = 'kim';
-obj.f = function(){
-	console.log('First name is' + this.name);
+  // return this;  (this가 암시적으로 반환됨)
 }
 
-console.log(obj); // {name:"kim",f:f} 객체반환
-obj.f(); //메서드 호출 
+let user = new User('kim')
+
+user// {name:kim, isAdmin:false}
+let user = new User('lee')
+let user = new User('park')...
 ```
+
+**재사용할 수 있는 객체 생성 코드**를 구현
 
 ### 생성자함수란
 
@@ -26,7 +39,7 @@ obj.f(); //메서드 호출
 
 Object생성자 함수 이외에 여러 형태의 빌트인 생성자함수 제공
 
-⚠️생성자 함수를 사용하여 객체 생성은 특별한 이유가 없다면 지양
+⚠️생성자 함수를 사용하여 객체 생성은 특별한 이유가 없다면 지양  (리털럴이 편하)
 
 ### 객체 리터럴에 의한 객체 생성 방식의 문제점
 
@@ -103,10 +116,10 @@ foo(); // window
 const obj = { foo }; // ES6 프로퍼티 축약 표현
 
 // 메서드로서 호출
-obj.foo(); // obj (객체를 가르킴)
+obj.foo(); // obj //{foo:f}
 
 // 생성자 함수로서 호출
-const inst = new foo(); // inst
+const inst = new foo(); // inst(생성자 함수가 생성할 인스턴스) // foo{}
 ```
 
 ### 인스턴**생성과 this 바인딩**

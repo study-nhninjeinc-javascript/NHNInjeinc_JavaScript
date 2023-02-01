@@ -1,9 +1,5 @@
 # 16_프로퍼티 어트리뷰트
 
-for in 문 
-
-- 해당 객체의 모든 열거할 수 있는 프로퍼티(enumerable properties)를 순회할 수 있도록 도움
-
 ## **내부 슬롯과 내부 메서드**
 
 내부 슬롯과 내부 메서드는 자바스크립트 엔진의 구현 알고리즘을 설명하기 위해 ECMAScript 사양에서 사용하는 의사 프로퍼티(pseudo property)와 의사 메서드(pseudo method)다.
@@ -18,7 +14,9 @@ console.log(o.__proto__) //[Object: null prototype] {}
 
 ## **프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체**
 
-자바스크립트 엔진은 프로퍼티 생성 시 프로퍼티의 상태 값(value), 값의 갱신 가능 여부(writable), 열거 가능 여부(enumerable), 재정의 가능 여부(configurable)를 나타낸는 프로퍼티 어트리뷰트를 기본적으로 자동 정의
+자바스크립트 엔진은 프로퍼티 생성 시 프로퍼티의 상태 값(value), 값의 갱신 가능 여부(writable), 열거 가능 여부(enumerable), 재정의 가능 여부(configurable)를 나타낸는 
+
+프로퍼티 어트리뷰트를 기본적으로 자동 정의
 
 Object.getOwnPropertyDescriptor 메서드를 사용해서 간접적으로 확인은 가능.
 
@@ -135,4 +133,146 @@ console.log(person.fullName) //fullName()소괄호 x
 
 ```
 
-//접근자 데이터 프로퍼티 구별을 언제 사용하는
+//접근자 데이터 프로퍼티 구별해서 뭐하나
+
+## 프로퍼티 정의
+
+기존 프로퍼티의 프로퍼티 어트리뷰트를 재정의하는 것을 말한다. 
+
+**Object.defineProperty 메서드**를 사용하면 프로퍼티의 어트리뷰트를 정의할 수 있다.
+
+```jsx
+const person = {};
+
+// 데이터 프로퍼티 정의
+Object.defineProperty(person, 'firstName', {
+ value: 'Umgmo',
+ writeable: true,
+ enumerable: true,
+ configurable: true,
+});
+
+Object.defineProperty(person, 'lastName', {
+ value: 'Lee',
+});
+
+person // {firstName: 'Umgmo', lastName: 'Lee'}
+
+Object.keys(person) /// firstName만 나옴  lastName 은 enumerable: false기 때문,
+
+```
+
+💥 왜 defineProperty로 정의한 lastName은 재정의 안됨?
+
+속성 설명자는 Object 내장 객체의 **Object.getOwnPropertyDescriptor()**
+ 메서드를 이용해 확인이 가능합니다.
+
+**Object.getOwnPropertyDescriptor(객체, 프로퍼티)**
+
+```jsx
+const human1 = {
+  firstName: "kim",
+  lastName: "ty",
+  age: 369
+};
+
+const result = Object.getOwnPropertyDescriptor(human1,"age");
+console.log(result);
+//{value: 369, writable: true, enumerable: true, configurable: true}
+```
+
+## 객체확장 금지
+
+**Object.preventExtensions**
+
+```jsx
+const person = { name: 'kim' };
+
+console.log(Object.isExtensible(person)); // true
+
+Object.preventExtendsions(person); // 객체 확장 금지
+
+console.log(Object.isExtensible(person)); // false
+
+person.age = 20; // 무시. strict mode 에서는 에러
+console.log(person); // {name: "kim"}
+
+delete person.name; // 추가는 금지되지만 삭제는 가능하다.
+console.log(person); // {}
+
+Object.defineProperty(person, 'age', {value: 20} );
+ //메소드를 사용한 추가도 금지
+// TypeError
+```
+
+## **객체 밀봉**
+
+**Object.seal**
+
+```jsx
+const person = { name: "kim" }
+
+console.log(Object.isSealed(person)); // false
+
+Object.seal(person);
+
+console.log(Object.isSealed(person); // true
+
+// 밀봉된 객체는 configurable이 false 이다.
+console.log(Object.getOwnPropertyDescriptors(person));
+// {
+//   name: {value: "kim", writable: true, enumerable: true, configurable: false}
+// }
+
+// 프로퍼티 추가 금지
+person.age = 333; // 무시, strict mode에서는 에러
+console.log(person); // {name: "kim"}
+
+// 프로퍼티 삭제 금지
+delete person.name; // 무시, strict mode에서는 에러
+console.log(person); // {name: "kim"}
+
+// 프로퍼티 값 갱신 가능
+person.name = "lee";
+console.log(person); // {name: "lee"}
+
+// 프로퍼티 어트리뷰트 재정의 금지
+Object.defineProperty(person, 'name', {configurable: true});
+// TypeError
+```
+
+## **객체 동결**
+
+**Object.freeze**
+
+```jsx
+const person = { name: "kim" }
+
+console.log(Object.isFreeze(person)); // false
+
+Object.freeze(person);
+
+console.log(Object.isFreeze(person); // true
+
+// 동결 객체는 writable과 configurable이 false 이다.
+console.log(Object.getOwnPropertyDescriptors(person));
+// {
+//   name: {value: "kim", writable: false, enumerable: true, configurable: false}
+// }
+
+// 프로퍼티 추가 금지
+person.age = 33333; // 무시, strict mode에서는 에러
+console.log(person); // {name: "kim"}
+
+// 프로퍼티 삭제 금지
+delete person.name; // 무시, strict mode에서는 에러
+console.log(person); // {name: ",kim"}
+
+// 프로퍼티 값 갱신 금지
+person.name = "lee";
+console.log(person); // {name: "kim"}
+
+// 프로퍼티 어트리뷰트 재정의 금지
+Object.defineProperty(person, 'name', {configurable: true});
+// TypeError
+```
