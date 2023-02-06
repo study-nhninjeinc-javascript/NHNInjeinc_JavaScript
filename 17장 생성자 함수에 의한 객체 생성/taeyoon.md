@@ -220,4 +220,4 @@ new.target은 함수 자신을 가르킨다
 
 일반함수의 [new.target](http://new.target)은 undefined
 
-es6에서는 안되니 instance of 로 확인 !
+es6에서는 안되니 instance of 로 확인 !1
