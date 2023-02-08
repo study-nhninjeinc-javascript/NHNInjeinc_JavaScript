@@ -30,19 +30,19 @@ const person = {
 };
 ```
 
-- 객체는 상태를 나타내거나 이를 조작할 수 있는 동작 즉 프로퍼티와 메서드를 하나의 논리적인 단위로 묶은 복합적인 자료구조라 할 수 있다.
+- 객체는 상태를 나타내거나 이를 조작할 수 있는 동작, 즉 프로퍼티와 메서드를 하나의 논리적인 단위로 묶은 복합적인 자료구조라 할 수 있다.
 
 ## 상속과 프로토타입
 
 > 상속은 어떤 객체의 프로퍼티 또는 메서드를 다른 객체가 상속받아 그대로 사용할 수 있는 것을 말한다.
 > 
-- 자바스크립트는 프로포타입을 기반으로 상속을 구현하여 불필요한 중복을 제거할 수 있다.
+- 자바스크립트는 프로토타입을 기반으로 상속을 구현하여 불필요한 중복을 제거할 수 있다.
 
 ```jsx
 // 생성자 함수
 function Circle(radius) {
 	this.radius = radius;
-	this.getArea = function() {
+	this.getArea = function() { // PI = 원주율
 		return Math.PI * this.radius ** 2;
 	};
 }
@@ -70,7 +70,7 @@ Circle.prototype.getArea = function() {
 const circle1 = new Circle(1);
 const circle10 = new Circle(10);
 
-// 모든 인스턴스가 하나의 메서드를 공유한다.
+// 모든 인스턴스가 하나의 동일한 메서드를 공유한다.
 console.log(circle1.getArea === circle2.getArea); // true
 
 ```
@@ -432,14 +432,131 @@ const obj = {
 
 ## 정적 프로퍼티/메서드
 
+```jsx
+function Person(name) {
+	this.name = name;
+}
+
+Person.prototype.sayHello = function() {
+	console.log(`Hi! ${this.name});
+};
+
+// 정적 프로퍼티
+Person.staticProp = 'static prop';
+
+Person.staticMethod = function() {
+	console.log('staticMethod');
+};
+
+const obj = new Person('Lee');
+
+// 생성자 함수에 추가한 정적 프로퍼티와 메서드는 생성자 함수로 참조, 호출한다.
+Person.staticMethod(); // staticMethod
+
+// 정적 프로퍼티와 메서드는 생성자 함수가 생성한 인스턴스로는 참조, 호출할 수 없다.
+obj.staticMethod(); // Error : is not a function
+```
+
+<aside>
+💡 인스턴스/프로토타입 메서드 내에서 this를 사용하지 않는다면 해당 메서드는 정적 메서드로 변경할 수 있다.
+
+</aside>
+
+```jsx
+function CreateFunc() {}
+
+// this를 참조하지 않는 프로토타입 메서드 -> 정적 메서드로 변경해도 동일하게 동작한다.
+CreateFunc.prototype.x = function() {
+	console.log('x'); // this.x 가 아닌 문자열 x를 출력
+};
+
+// CreateFunc.x(); Error -> 프로토타입 메서드를 호출하기 위해선 인스턴스를 생성해야한다..
+
+const obj = new CreateFunc();
+
+obj.x(); // x
+
+CreateFunc.x = obj.x;
+
+CreateFunc.x(); // 정적 메서드는 인스턴스를 생성하지 않고 호출할 수 있다.
+```
+
+<aside>
+💡 프로토타입 프로퍼티나 메서드를 표기할 때 prototype을 #으로 표기하는 경우도 있다. (Object#isPrototypeOf)
+
+</aside>
+
 ## 프로퍼티 존재 확인
 
 ### in 연산자
 
+```jsx
+const person = {
+	name: 'Lee',
+	address: 'Seoul'
+};
+
+console.log('name' in person); // true
+
+console.log('address' in person); //true
+
+console.log('age' in person); // false
+
+// in 연산자는 상속받은 모든 프로토타입의 프로퍼티를 확인한다.
+console.log('toString' in person); // true
+```
+
+```jsx
+// ES6 에서 도입된 Reflect.has 메서드
+const person = { name: 'Lee' };
+
+console.log(Reflect.has(person, 'name')); // true
+console.log(Reflect.has(person, 'toString')); // true
+// in 연산자와 동일하게 동작한다.
+```
+
 ### Object.prototype.hasOwnProperty 메서드
+
+```jsx
+console.log(person.hasOwnProperty('name')); // true
+console.log(person.hasOwnProperty('toString')); // false
+```
 
 ## 프로퍼티 열거
 
 ### for … in 문
 
+```jsx
+const person = {
+	name: 'Lee',
+	address: 'Seoul'
+};
+
+for (const key in person) { // key 변수에 person 객체의 프로퍼티 키가 반복하며 할당된다.
+	console.log(key + ': ' + person[key]
+}
+```
+
+<aside>
+💡 for … in 문은 객체가 상속 받은 프로퍼티까지 열거한다.
+
+</aside>
+
 ### Object.keys/values/entries 메서드
+
+```jsx
+// for ... in 문은 상속받은 프로퍼티도 열거하기 때문에 객체 자신의 고유 프로퍼티만 열거하는 경우 사용하기 좋다.
+const person = {
+	name: 'Lee',
+	address: 'Seoul',
+	__proto__: { age: 20 }
+};
+
+console.log(Object.keys(person)); // ["name", "address"]
+
+// ES8 에서 도입된 Object.values
+console.log(Object.values(person)); // ["Lee", "Seoul"]
+
+// ES8 에서 도입된 Object.entries
+console.log(Object.entries(person)); // [["name", "Lee"], ["address", "Seoul"]]
+```
