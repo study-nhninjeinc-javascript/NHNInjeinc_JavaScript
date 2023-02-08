@@ -286,14 +286,160 @@ console.log(obj.hasOwnProperty('name')); // true
 
 ## 오버라이딩과 프로퍼티 섀도잉
 
+```jsx
+const Person = (function () {
+	// 생성자 함수 Person
+	function Person(name) {
+		this.name = name;
+	}
+
+	Person.prototype.sayHello = function() {
+		console.log(`Hi! ${this.name}`);
+	};
+
+	// 생성자 함수를 반환
+	return Person;
+}());
+
+const p1 = new Person('Lee');
+
+p1.sayHello(); // Hi! Lee
+
+// 인스턴스의 메서드
+p1.sayHello = function () {
+	console.log(`Hello! ${this.name});
+};
+
+p1.sayHello(); // Hello! Lee
+```
+
+> 상위(프로토타입) 프로퍼티는 프로퍼티 섀도잉, 하위(인스턴스) 프로퍼티는 오버라이딩 된다.
+> 
+
+<aside>
+💡 상속 관계에 의해 프로퍼티가 가려지는 현상을 프로퍼티 섀도잉이라 한다.
+
+</aside>
+
+- 동일한 이름의 프로퍼티를 하위 객체에서 추가할 순 있지만 하위 객체가 상위 객체의 프로퍼티를 삭제할 수 없다.
+    - get 액세스는 허용되나 set 엑세스는 허용되지 않는다.
+    
+    ** 프로토타입 체인을 통해서 안되는 것이고 프로토타입에 직접 접근해서 삭제할 순 있다.
+    
+
 ## 프로토타입의 교체
+
+> 프로토타입은 임의의 다른 객체로 변경할 수 있다. → 부모 객체를 동적으로 변경할 수 있다.
+> 
+
+### 생성자 함수에 의한 프로토타입 교체
+
+```jsx
+const Person = (function () {
+	function Person(name) { this.name = name; }
+
+	Person.prototype = {
+		// constructor: Person,
+		sayHello() {
+			console.log(`Hi!, ${this.name});
+		}
+	};
+
+	return Person;
+}());
+
+const obj = new Person('Lee');
+
+console.log(obj.constructor === Person); // false
+```
+
+### 인스턴스에 의한 프로토타입의 교체
+
+```jsx
+function Person(name) { this.name = name; }
+
+const obj = new Person('Lee');
+
+const parent = {
+	sayHello() {
+		console.log('Hi! ${this.name});
+	}
+};
+
+Object.setPrototypeOf(obj, parent);
+// obj.__proto__ = parent;
+
+console.log(obj.constructor === Person); // false
+```
 
 ## instanceof 연산자
 
+> 객체 instanceof 생성자 함수
+> 
+
+ 생성자 함수의 prototype에 바인딩된 객체가 좌측 객체의 프로토타입 체인 상에 존재하면 true 아니면 false로 평가된다.
+
+```jsx
+function Person(name) {
+	this.name = name;
+}
+
+const obj = new Person('Lee');
+
+console.log(obj instanceof Person); // true
+
+console.log(obj instanceof Object); // true
+```
+
 ## 직접 상속
+
+### Object.create
+
+```jsx
+let obj = Object.create(null); // 프로토타입이 null 인 객체를 생성한다.
+console.log(Object.getPrototypeOf(obj) === null); // true
+
+obj = Object.create(Object.prototype, { x: { value: 1 } }); // 프로토타입이 Object.prototype 이고 x 프로퍼티를 가지는 객체가 생성된다.
+```
+
+### 장점
+
+- new 연산자 없이 객체 생성 가능
+- 프로토타입 지정하면서 생성 가능
+- 객체 리터럴에 의해 생성된 객체를 상속받을 수 있음
+
+<aside>
+💡 Object.prototype의 빌트인 메서드를 객체가 직접 호출하는 것을 권장하지 않는다. → 간접적으로 호출하는 것이 좋다. ( Object.prototype.hasOwnProperty.call() )
+
+</aside>
+
+### 객체 리터럴 내부에서 __proto__ 에 의한 직접 상속
+
+<aside>
+💡 ES6 이후에는 객체 리터럴 내부에서 __proto__ 접근자 프로퍼티를 사용하여 직접 상속을 구현할 수 있다.
+
+</aside>
+
+```jsx
+const myProto = { x : 10 };
+
+const obj = {
+	y: 20,
+
+	__proto__: myProto
+};
+```
 
 ## 정적 프로퍼티/메서드
 
 ## 프로퍼티 존재 확인
 
+### in 연산자
+
+### Object.prototype.hasOwnProperty 메서드
+
 ## 프로퍼티 열거
+
+### for … in 문
+
+### Object.keys/values/entries 메서드
